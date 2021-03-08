@@ -10,7 +10,11 @@ SRC = $(wildcard *.$(EXT))
 OBJ = $(SRC:.$(EXT)=.o)
 OBJ := $(addprefix $(OBJ_DIR)/, $(OBJ))
 
-all: $(EXEC)
+all: $(EXEC) \
+	setup
+
+setup:
+	mkdir -p obj
 
 $(EXEC): $(OBJ)
 	@$(CXX) -o $@ $^ $(LDFLAGS)
@@ -20,3 +24,4 @@ $(OBJ_DIR)/%.o: %.$(EXT)
 
 clean:
 	rm -f $(EXEC)
+	rm -rf obj

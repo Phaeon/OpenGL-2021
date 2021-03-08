@@ -1,4 +1,5 @@
 #include "actions.h"
+#include "mouvements.h"
 #include <stdio.h>
 #include <GL/glut.h>
 
@@ -23,15 +24,39 @@ extern GLfloat mouvement_monstre_z;
 
 
 // PARAMETRES BRAS
-extern GLfloat angle_bras;
+extern GLfloat angle_bras_1;
 extern GLfloat angle_bras_2;
-int bras_leve = 0;
+extern GLfloat angle_bras_3;
+extern GLfloat angle_bras_4;
+extern GLfloat angle_bras_5;
+
+int bras_leve_1 = 0;
+int bras_leve_2 = 0;
+int bras_leve_3 = 0;
+int bras_leve_4 = 0;
+int bras_leve_5 = 0;
 
 // PARAMETRES PATTES
-extern GLfloat angle_pattes;
-extern GLfloat angle_pattes_y;
-int sommet = 0;
-int avancer = 0;
+extern GLfloat angle_pattes_AD;
+extern GLfloat angle_pattes_AD_y;
+extern GLfloat angle_pattes_AG;
+extern GLfloat angle_pattes_AG_y;
+extern GLfloat angle_pattes_CD;
+extern GLfloat angle_pattes_CD_y;
+extern GLfloat angle_pattes_CG;
+extern GLfloat angle_pattes_CG_y;
+extern GLfloat angle_pattes_ARD;
+extern GLfloat angle_pattes_ARD_y;
+extern GLfloat angle_pattes_ARG;
+extern GLfloat angle_pattes_ARG_y;
+
+int sommet_ava = 0;
+int sommet_lat = 0;
+int sommet_arr = 0;
+
+int avancer_ava = 0;
+int avancer_lat = 0;
+int avancer_arr = 0;
 
 // PARAMETRES TETE
 extern GLfloat angle_tete;
@@ -91,61 +116,61 @@ void touche_pressee(unsigned char key, int x, int y)
       light = switch_light(light);
       break;
       
-    case TOUCHE_MIN_A: // AVANCER 
-      
-      // ROTATION DES PATTES
-      if (sommet) {
-        if (angle_pattes_y <= 5.0f) angle_pattes_y += 0.2f;
-        else {
-          if (angle_pattes > 0) angle_pattes -= 0.1f;
-          else {
-            avancer = 1;
-            sommet = 0;
-          }
-        }
-      } else {
-        if (avancer) {
-          if (angle_pattes_y > 0) {
-            angle_pattes_y -= 0.2f;
-            mouvement_monstre_z += 0.025f;
-          } else {
-            avancer = 0;
-          }
-        } else {
-          if (angle_pattes <= 10.0f) angle_pattes += 0.1f;
-          else sommet = 1;
-        }
-      }
-
-      // ROTATION DE LA TETE
-      if (right_end) {
-        if (angle_tete > -15.0f) angle_tete -= 0.5f;
-        else right_end = 0;
-      } else {
-        if (angle_tete <= 15.0f) angle_tete += 0.5f;
-        else right_end = 1;
-      }
-
-      break;
-      
-    case TOUCHE_MAJ_A: // RECULER
-      if (angle_bras <= 20) angle_bras += 0.3f;
-    
-
+    case TOUCHE_MIN_A: // ROTATION DES PATTES ET DE LA TETE
+      rotation_pattes_avant();
       break;
 
-    case TOUCHE_MAJ_Z: // LEVER BRAS
-      if (angle_bras <= 20) angle_bras += 0.3f;
-      else {
-        bras_leve = 1;
-      }
-
+    case TOUCHE_MIN_Z:
+      rotation_pattes_lat();
       break;
 
-    case TOUCHE_MIN_Z: // RECULER
-      if (angle_bras > 7) angle_bras -= 0.2f;
-      else bras_leve = 0;
+    case TOUCHE_MIN_E:
+      rotation_pattes_arriere();
+      break;
 
+    case TOUCHE_MIN_R: // VALIDE SEULEMENT APRES L'AVANCEMENT DES PATTES
+      avancer_monstre();
+      break;
+
+    case TOUCHE_MIN_Q:
+      lever_bras1();
+      break;
+
+    case TOUCHE_MAJ_Q:
+      baisser_bras1();
+      break;
+
+    case TOUCHE_MIN_S:
+      lever_bras2();
+      break;
+
+    case TOUCHE_MAJ_S:
+      baisser_bras2();
+      break;
+
+    case TOUCHE_MIN_D:
+      lever_bras3();
+      break;
+
+    case TOUCHE_MAJ_D:
+      baisser_bras3();
+      break;
+
+
+    case TOUCHE_MIN_F:
+      lever_bras4();
+      break;
+
+    case TOUCHE_MAJ_F:
+      baisser_bras4();
+      break;
+
+    case TOUCHE_MIN_G:
+      lever_bras5();
+      break;
+
+    case TOUCHE_MAJ_G:
+      baisser_bras5();
       break;
 
     case CAMERA:

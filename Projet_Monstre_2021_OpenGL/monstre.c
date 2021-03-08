@@ -1,6 +1,5 @@
 #include "monstre.h"
 
-extern int bras_leve;
 
 /*
 * Axe de référence : z (+)
@@ -131,14 +130,14 @@ GLvoid corps(GLfloat angle, GLfloat longueur, GLfloat hauteur) {
 
 }
 
-GLvoid bras(GLfloat angle, GLfloat angle_2) {
+GLvoid bras(GLfloat angle, int bras) {
 
     glRotatef(-angle, 0, 0, -1);
     glRotatef(100, 0, 0,1);
 
     for (size_t i = 0; i < 5; i++)
     {
-        if (bras_leve == 0) glRotatef(20 - angle, 0, 0, 1);
+        if (bras == 0) glRotatef(20 - angle, 0, 0, 1);
 
         glTranslatef(0.0, -0.45, 0.0);
         glPushMatrix();
