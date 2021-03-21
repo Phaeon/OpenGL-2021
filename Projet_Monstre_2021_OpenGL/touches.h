@@ -13,6 +13,8 @@
 #define TOUCHE_MIN_Z 122
 #define TOUCHE_MIN_E 101
 #define TOUCHE_MIN_R 114
+#define TOUCHE_MIN_T 116
+#define TOUCHE_MIN_Y 121
 
 #define TOUCHE_MIN_Q 113
 #define TOUCHE_MAJ_Q 81
@@ -30,6 +32,9 @@
 #define TOUCHE_MAJ_G 71
 
 #define CAMERA 9
+
+#define TOUCHE_MIN_P 112
+#define TOUCHE_MAJ_P 80
 
 #define ESCAPE 27
 #define ESPACE 32

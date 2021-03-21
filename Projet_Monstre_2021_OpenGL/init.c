@@ -1,5 +1,7 @@
 #include "init.h"
 #include "ppm.h"
+#include "string.h"
+#include "dirent.h"
 
 /*
  * Gestion de la fenêtre
@@ -16,7 +18,7 @@ extern GLfloat z;
 extern GLfloat xrot;
 extern GLfloat yrot;
 
-GLuint texture[1];
+GLuint texture[2];
 
 
 GLvoid Redimensionne(GLsizei Width, GLsizei Height) {
@@ -57,6 +59,7 @@ glutInit(&argc, argv);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
 	 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL);
@@ -74,37 +77,50 @@ glutInit(&argc, argv);
 
 
 	// GESTION DES TEXTURES
-	GLuint textures[1];
-	glGenTextures(1, textures);
+	glGenTextures(1, texture);
 
-	// TEXTURE CORPS
-	TEXTURE_STRUCT * texture_corps = readPpm ("corps.ppm");
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
-	glTexParameteri(
-        GL_TEXTURE_2D,
-        GL_TEXTURE_WRAP_S,
-        GL_MIRRORED_REPEAT
-    );
-    glTexParameteri(
-        GL_TEXTURE_2D,
-        GL_TEXTURE_WRAP_T,
-        GL_MIRRORED_REPEAT
-    );
-    glTexParameteri(
-        GL_TEXTURE_2D,
-        GL_TEXTURE_MAG_FILTER,
-        GL_LINEAR
-    );
-    glTexParameteri(
-        GL_TEXTURE_2D,
-        GL_TEXTURE_MIN_FILTER,
-        GL_LINEAR
-    );
-    glTexImage2D(GL_TEXTURE_2D,
-        0,GL_RGB,
-        texture_corps->width,texture_corps->height,
-        0,GL_RGB,GL_UNSIGNED_BYTE, 
-        texture_corps->data);
+	for (int i = 0; i < 2; i++)
+	{
+
+	char* fichier;
+	if (i == 0) {
+		fichier = "crate.ppm";
+	} else {
+		fichier = "anims/Guybrush00.ppm";
+	}
+
+		// TEXTURE OBSTACLE
+		TEXTURE_STRUCT * texture_corps = readPpm (fichier);
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glTexParameteri(
+        	GL_TEXTURE_2D,
+        	GL_TEXTURE_WRAP_S,
+        	GL_MIRRORED_REPEAT
+    	);
+    	glTexParameteri(
+        	GL_TEXTURE_2D,
+        	GL_TEXTURE_WRAP_T,
+        	GL_MIRRORED_REPEAT
+    	);
+    	glTexParameteri(
+        	GL_TEXTURE_2D,
+        	GL_TEXTURE_MAG_FILTER,
+        	GL_LINEAR
+    	);
+    	glTexParameteri(
+        	GL_TEXTURE_2D,
+        	GL_TEXTURE_MIN_FILTER,
+        	GL_LINEAR
+    	);
+    	glTexImage2D(GL_TEXTURE_2D,
+        	0,GL_RGB,
+        	texture_corps->width,texture_corps->height,
+        	0,GL_RGB,GL_UNSIGNED_BYTE, 
+        	texture_corps->data);
+	
+		texture_corps->data = rgb2rgba(texture_corps);
+	}
+	
 
 	glEnable(GL_TEXTURE_2D);
 

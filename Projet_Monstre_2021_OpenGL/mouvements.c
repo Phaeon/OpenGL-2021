@@ -1,4 +1,7 @@
 #include "mouvements.h"
+#include <stdio.h>
+#include "actions.h"
+#include "touches.h"
 
 extern int sommet_ava;
 extern int sommet_lat;
@@ -20,7 +23,12 @@ extern GLfloat angle_pattes_ARD;
 extern GLfloat angle_pattes_ARD_y;
 extern GLfloat angle_pattes_ARG;
 extern GLfloat angle_pattes_ARG_y;
+
+extern GLfloat rayon_univers;
+extern GLfloat mouvement_monstre_x;
+extern GLfloat mouvement_monstre_y;
 extern GLfloat mouvement_monstre_z;
+extern GLfloat rotation_monstre_y;
 
 extern GLfloat angle_bras_1;
 extern GLfloat angle_bras_2;
@@ -36,6 +44,8 @@ extern int bras_leve_5;
 
 extern int right_end;
 extern GLfloat angle_tete;
+
+extern int automatique;
 
 GLvoid rotation_pattes_avant() // sommet = 0 que lorsqu'il aura avancé
 {   
@@ -107,7 +117,7 @@ GLvoid avancer_monstre() {
             angle_pattes_ARG_y -= 0.2f;
             angle_pattes_CD_y -= 0.2f;
             angle_pattes_CG_y -= 0.2f;
-            mouvement_monstre_z += 0.025;
+            if (mouvement_monstre_z < (rayon_univers - 2.0f)) mouvement_monstre_z += 0.025;
         } else {
             avancer_ava = 0;
             avancer_lat = 0;
@@ -117,6 +127,18 @@ GLvoid avancer_monstre() {
             sommet_arr = 0;
         }
     }
+}
+
+
+GLvoid tourner_a_gauche()
+{
+    rotation_monstre_y += 0.2;
+}
+
+
+GLvoid tourner_a_droite()
+{
+    rotation_monstre_y -= 0.2;
 }
 
 
@@ -222,4 +244,45 @@ GLvoid baisser_bras5()
         if (angle_bras_5 > 7) angle_bras_5 -= 0.2f;
         else bras_leve_5 = 0;
     } 
+}
+
+
+// MOUVEMENTS ALEATOIRES
+GLvoid avancer_auto()
+{
+    if (avancer_ava != 1) {
+        if (sommet_ava == 0) {
+        if (angle_pattes_AD <= 10.0f) {
+            angle_pattes_AG += 0.1f;
+            angle_pattes_AD += 0.1f;
+            usleep(100);
+            avancer_auto();
+        } else {
+            usleep(100);
+                avancer_auto();
+            sommet_ava = 1;
+        }
+    } else {
+        if (angle_pattes_AD_y <= 5.0f) {
+            angle_pattes_AG_y += 0.2f;
+            angle_pattes_AD_y += 0.2f;
+            usleep(100);
+                avancer_auto();
+        } else {
+            if (angle_pattes_AD > 0) {
+                angle_pattes_AG -= 0.1f;
+                angle_pattes_AD -= 0.1f;
+                usleep(100);
+                avancer_auto();
+            } else avancer_ava = 1;
+        }
+    }
+    } else {
+        automatique = 0;
+    }
+}
+
+GLvoid mouvements_aleatoires()
+{
+    avancer_auto();
 }

@@ -4,6 +4,9 @@
 #include "axes.h"
 #include "VM_init.h"
 #include "monstre.h"
+#include "obstacle.h"
+#include "mouvements.h"
+#include "animation.h"
 #include <GL/gl.h>
 
 // CAMERA
@@ -35,18 +38,16 @@ GLfloat angle_tete = 0.0f;
 GLfloat mouvement_monstre_x = 0.0f;
 GLfloat mouvement_monstre_y = 0.0f;
 GLfloat mouvement_monstre_z = 0.0f;
+GLfloat rotation_monstre_x = 0.0f;
+GLfloat rotation_monstre_y = 0.0f;
+GLfloat rotation_monstre_z = 0.0f;
 
 // BRAS
 GLfloat angle_bras_1 = 0.0f;
-GLfloat angle_bras_1_2 = 0.0f;
 GLfloat angle_bras_2 = 0.0f;
-GLfloat angle_bras_2_2 = 0.0f;
 GLfloat angle_bras_3 = 0.0f;
-GLfloat angle_bras_3_2 = 0.0f;
 GLfloat angle_bras_4 = 0.0f;
-GLfloat angle_bras_4_2 = 0.0f;
 GLfloat angle_bras_5 = 0.0f;
-GLfloat angle_bras_5_2 = 0.0f;
 
 extern int bras_leve_1;
 extern int bras_leve_2;
@@ -54,18 +55,49 @@ extern int bras_leve_3;
 extern int bras_leve_4;
 extern int bras_leve_5;
 
-// TEXTURE
-extern GLuint texture[];
+
+// BORDURES
+GLfloat rayon_univers = 30.0f;
+
+// MOUVEMENT
+int automatique = 1;
 
 GLvoid Modelisation()
 {
   VM_init();
-  glColor3f(1, 0, 0);
-  // CREATION DU MONSTRE
-  glTranslatef(mouvement_monstre_x, mouvement_monstre_y, mouvement_monstre_z); // Déplacements
 
   glPushMatrix();
   {
+    glRotatef(30, 0, -1, 0);
+    glTranslatef(-6.0f, 1.0f, 10.0f);
+    for (size_t i = 0; i < 2; i++)
+    {
+      glTranslatef(1.5f, 0.0, 0.0f);
+      afficher_cube(creer_cube(1));
+    }
+    
+  }
+  glPopMatrix();
+
+  glPushMatrix();
+  {
+    glRotatef(30, 0, -1, 0);
+    glTranslatef(-6.0f, 0.0f, 10.0f);
+    for (size_t i = 0; i < 4; i++)
+    {
+      glTranslatef(1.2f, 0.0, 0.0f);
+      afficher_cube(creer_cube(1));
+    }
+    
+  }
+  glPopMatrix();
+
+  glColor3f(1, 0, 0);
+  // CREATION DU MONSTRE
+  glRotatef(rotation_monstre_y, 0, 1, 0);
+  glPushMatrix();
+  {
+    glTranslatef(mouvement_monstre_x, mouvement_monstre_y, mouvement_monstre_z); // Déplacements
     glRotatef(75, 0, -1, 0);
 
     glPushMatrix();
@@ -142,11 +174,14 @@ GLvoid Modelisation()
 
   glPushMatrix();
   {
+    glTranslatef(mouvement_monstre_x, mouvement_monstre_y, mouvement_monstre_z); // Déplacements
     corps(angle_tete, 0, 0);
   }
   glPopMatrix();
 
 
+
+  //showFrame();
  
   axes();
   glutSwapBuffers();

@@ -10,7 +10,7 @@ L'univers :
 > B / b : Activer/Désactiver le blend
 > L / l : Activer/Désactiver la lumière
 > Flèches directionnelles : Bouger la caméra
-> 
+
 
 Touches des pattes :
 
@@ -18,6 +18,8 @@ Touches des pattes :
 > z : Pattes centrales
 > e : Pattes arrières
 > r : Avancer
+> t : Pivoter à gauche
+> y : Pivoter à droite
 
 Touches des bras :
 
@@ -32,6 +34,11 @@ Touches des bras :
 > D : baisser le bras 3
 > F : baisser le bras 4
 > G : baisser le bras 5
+
+
+### Contrôle automatique
+
+> p / P (as in play...) : Démarre/Arrête les déplacements de la réplique
 
 
 

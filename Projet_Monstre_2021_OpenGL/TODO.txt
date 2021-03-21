@@ -1,0 +1,8 @@
+- Revoir les touches pour la caméra
+- Faire un sol (30 x 30)
+- Gérer les lumières
+
+IMPORTANT :
+
+- Faire une animation
+- Automatiser le monstre

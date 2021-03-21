@@ -62,6 +62,8 @@ int avancer_arr = 0;
 extern GLfloat angle_tete;
 int right_end = 0;
 
+extern int automatique;
+
 
 void touche_special(int touche, int t, int u) 
 {
@@ -132,6 +134,14 @@ void touche_pressee(unsigned char key, int x, int y)
       avancer_monstre();
       break;
 
+    case TOUCHE_MIN_T:
+      tourner_a_gauche();
+      break;
+
+    case TOUCHE_MIN_Y:
+      tourner_a_droite();
+      break;
+
     case TOUCHE_MIN_Q:
       lever_bras1();
       break;
@@ -172,6 +182,13 @@ void touche_pressee(unsigned char key, int x, int y)
     case TOUCHE_MAJ_G:
       baisser_bras5();
       break;
+
+    case TOUCHE_MIN_P:
+    case TOUCHE_MAJ_P:
+      automatique = (automatique == 1) ? 0 : 1;
+      mouvements_aleatoires();
+      break;
+    
 
     case CAMERA:
         camera = (camera == 1) ? 0 : 1;
