@@ -1,8 +1,11 @@
-- Revoir les touches pour la caméra
-- Faire un sol (30 x 30)
-- Gérer les lumières
+ELEMENTS PRINCIPAUX :
 
-IMPORTANT :
+- Régler la lumière ;
+- Calculer les normales pour les cubes et pour le sol ;
+- Créer l'animation avec un timer ;
+- Gérer la transparence ;
 
-- Faire une animation
-- Automatiser le monstre
+
+OBJETS SECONDAIRES :
+
+- Lampadaires avec lumières ;
