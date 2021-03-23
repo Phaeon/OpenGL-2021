@@ -58,12 +58,14 @@ int avancer_ava = 0;
 int avancer_lat = 0;
 int avancer_arr = 0;
 
+int rotation = 0;
+
 // PARAMETRES TETE
 extern GLfloat angle_tete;
 int right_end = 0;
 
 extern int automatique;
-
+extern int culling;
 
 void touche_special(int touche, int t, int u) 
 {
@@ -186,12 +188,21 @@ void touche_pressee(unsigned char key, int x, int y)
     case TOUCHE_MIN_P:
     case TOUCHE_MAJ_P:
       automatique = (automatique == 1) ? 0 : 1;
-      mouvements_aleatoires();
       break;
     
 
     case CAMERA:
-        camera = (camera == 1) ? 0 : 1;
+      camera = (camera == 1) ? 0 : 1;
+      break;
+
+    case CULLING_MIN_C:
+    case CULLING_MAJ_C:
+      culling = (culling == 1) ? 0 : 1;
+      if (culling) {
+		    glEnable(GL_CULL_FACE); // Faces cachées  
+		    glFrontFace(GL_CCW); // Définir le mode d'affichage des faces visibles (Counter) ClockWise                                                              
+		    glCullFace(GL_CW);// Définir le mode d'affichage des faces cachées (Counter) ClockWise               
+	    } else glDisable(GL_CULL_FACE);
       break;
     }	
 }

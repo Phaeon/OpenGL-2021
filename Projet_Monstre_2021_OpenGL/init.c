@@ -18,7 +18,9 @@ extern GLfloat z;
 extern GLfloat xrot;
 extern GLfloat yrot;
 
-GLuint texture[2];
+extern int culling;
+
+GLuint texture[45];
 
 
 GLvoid Redimensionne(GLsizei Width, GLsizei Height) {
@@ -59,7 +61,7 @@ glutInit(&argc, argv);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
+	//glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
 	 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL);
@@ -75,23 +77,26 @@ glutInit(&argc, argv);
 	glLightfv(GL_LIGHT0, GL_POSITION, LightPos);
 	glEnable(GL_LIGHT0);
 
-
 	// GESTION DES TEXTURES
 	glGenTextures(1, texture);
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 10; i++)
 	{
 
 	char* fichier;
 	if (i == 0) {
 		fichier = "crate.ppm";
 	} else {
-		fichier = "anims/Guybrush00.ppm";
+		char s[255];
+		sprintf(s, "anims/Guybrush0%i", i-1);
+		fichier = s;
+		strcat(fichier, ".ppm");
+		printf("%s\n", s);
 	}
 
 		// TEXTURE OBSTACLE
 		TEXTURE_STRUCT * texture_corps = readPpm (fichier);
-		glBindTexture(GL_TEXTURE_2D, texture);
+		glBindTexture(GL_TEXTURE_2D, texture[i]);
 		glTexParameteri(
         	GL_TEXTURE_2D,
         	GL_TEXTURE_WRAP_S,
@@ -118,9 +123,8 @@ glutInit(&argc, argv);
         	0,GL_RGB,GL_UNSIGNED_BYTE, 
         	texture_corps->data);
 	
-		texture_corps->data = rgb2rgba(texture_corps);
+		//texture_corps->data = rgb2rgba(texture_corps);
 	}
-	
 
 	glEnable(GL_TEXTURE_2D);
 

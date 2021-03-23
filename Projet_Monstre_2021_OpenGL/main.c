@@ -55,54 +55,43 @@ extern int bras_leve_3;
 extern int bras_leve_4;
 extern int bras_leve_5;
 
-
 // BORDURES
 GLfloat rayon_univers = 30.0f;
 
 // MOUVEMENT
-int automatique = 1;
+int automatique = 0;
+int tourner = 0;
+int culling = 0;
 
-GLvoid Modelisation()
+GLvoid sol()
 {
-  VM_init();
+    glPushMatrix();
+    {
+      glColor3f(0, 255, 255);
+      glTranslatef(0.0, -0.1, 0.0);
+      glScalef(rayon_univers, 0.1, rayon_univers);
+      glutSolidCube(1);
+    }
+    glPopMatrix();
+}
+
+GLvoid monstre() {
 
   glPushMatrix();
-  {
-    glRotatef(30, 0, -1, 0);
-    glTranslatef(-6.0f, 1.0f, 10.0f);
-    for (size_t i = 0; i < 2; i++)
-    {
-      glTranslatef(1.5f, 0.0, 0.0f);
-      afficher_cube(creer_cube(1));
-    }
-    
-  }
+    creerLampadaire(5, 5);
   glPopMatrix();
-
-  glPushMatrix();
-  {
-    glRotatef(30, 0, -1, 0);
-    glTranslatef(-6.0f, 0.0f, 10.0f);
-    for (size_t i = 0; i < 4; i++)
-    {
-      glTranslatef(1.2f, 0.0, 0.0f);
-      afficher_cube(creer_cube(1));
-    }
-    
-  }
-  glPopMatrix();
-
   glColor3f(1, 0, 0);
   // CREATION DU MONSTRE
-  glRotatef(rotation_monstre_y, 0, 1, 0);
   glPushMatrix();
   {
     glTranslatef(mouvement_monstre_x, mouvement_monstre_y, mouvement_monstre_z); // Déplacements
+    
     glRotatef(75, 0, -1, 0);
 
     glPushMatrix();
     {
       // PATTE ARRIERE DROIT
+        glRotatef(rotation_monstre_y, 0, 1, 0);
       glRotatef(300, 0, 1, 0);
       pieds(angle_pattes_ARD, angle_pattes_ARD_y);
     }
@@ -111,6 +100,8 @@ GLvoid Modelisation()
     glPushMatrix();
     {
       // PATTE ARRIERE GAUCHE
+        glRotatef(rotation_monstre_y, 0, 1, 0);
+
       glRotatef(210, 0, 1, 0);
       pieds(angle_pattes_ARG, -angle_pattes_ARG_y);
     }
@@ -119,6 +110,7 @@ GLvoid Modelisation()
     glPushMatrix();
     {
       // PATTE LATERALE GAUCHE
+        glRotatef(rotation_monstre_y, 0, 1, 0);
       glRotatef(160, 0, 1, 0);
       pieds(angle_pattes_CG, -angle_pattes_CG_y);
     }
@@ -127,6 +119,7 @@ GLvoid Modelisation()
     glPushMatrix();
     {
       // PATTE LATERALE DROITE
+      glRotatef(rotation_monstre_y, 0, 1, 0);
       glRotatef(-10, 0, 1, 0);
       pieds(angle_pattes_CD, angle_pattes_CD_y);
     }
@@ -135,6 +128,7 @@ GLvoid Modelisation()
     glPushMatrix();
     {
       // PATTE AVANT GAUCHE
+      glRotatef(rotation_monstre_y, 0, 1, 0);
       glRotatef(120, 0, 1, 0);
       pieds(angle_pattes_AG, -angle_pattes_AG_y);
     }
@@ -143,6 +137,7 @@ GLvoid Modelisation()
     glPushMatrix();
     {
       // PATTE AVANT DROITE (Vue de derrière)
+      glRotatef(rotation_monstre_y, 0, 1, 0);
       glRotatef(30, 0, 1, 0);
       pieds(angle_pattes_AD, angle_pattes_AD_y);
     }
@@ -150,9 +145,10 @@ GLvoid Modelisation()
 
     glPushMatrix();
     {
-
+    glRotatef(rotation_monstre_y, 0, 1, 0);
       for (size_t i = 0; i < 5; i++)
       {
+        
         glRotatef(55, 0, 1, 0);
         glPushMatrix();
         {
@@ -178,7 +174,49 @@ GLvoid Modelisation()
     corps(angle_tete, 0, 0);
   }
   glPopMatrix();
+}
 
+
+
+GLvoid Modelisation()
+{
+  VM_init();
+
+  sol();
+
+  if (automatique) avancer_auto();
+
+  glPushMatrix();
+  {
+    glRotatef(30, 0, -1, 0);
+    glTranslatef(-6.0f, 1.35f, 10.0f);
+    for (size_t i = 0; i < 2; i++)
+    {
+      glTranslatef(1.5f, 0.0, 0.0f);
+      afficher_cube(creer_cube(1));
+    }
+    
+  }
+  glPopMatrix();
+
+  glPushMatrix();
+  {
+    glRotatef(30, 0, -1, 0);
+    glTranslatef(-6.0f, 0.35f, 10.0f);
+    for (size_t i = 0; i < 4; i++)
+    {
+      glTranslatef(1.2f, 0.0, 0.0f);
+      afficher_cube(creer_cube(1));
+    }
+    
+  }
+  glPopMatrix();
+
+  glPushMatrix();
+  { 
+    monstre();
+  }
+  glPopMatrix();
 
 
   //showFrame();

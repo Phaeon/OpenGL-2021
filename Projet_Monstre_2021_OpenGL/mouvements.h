@@ -16,6 +16,7 @@ GLvoid tourner_a_gauche();
 GLvoid tourner_a_droite();
 
 GLvoid rotation_tete();
+GLvoid tirer_laser();
 
 GLvoid lever_bras1();
 GLvoid lever_bras2();

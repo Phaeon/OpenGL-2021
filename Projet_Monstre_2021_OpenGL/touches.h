@@ -22,6 +22,9 @@
 #define TOUCHE_MIN_S 115
 #define TOUCHE_MAJ_S 83
 
+#define CULLING_MIN_C 99
+#define CULLING_MAJ_C 67
+
 #define TOUCHE_MIN_D 100
 #define TOUCHE_MAJ_D 68
 

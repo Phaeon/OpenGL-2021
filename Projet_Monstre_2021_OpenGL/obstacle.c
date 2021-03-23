@@ -77,8 +77,9 @@ void afficher_cube(s_cube * cube) {
 		int i;
 		for (i = 0; i < 6; i++) {
             glColor3f(255, 255, 255);
+			glBindTexture(GL_TEXTURE_2D, texture[0]);
 			glBegin(GL_QUADS);
-                glBindTexture(GL_TEXTURE_2D, texture[0]);
+                
                 glTexCoord2f(0.0f, 0.0f);
 				glVertex3fv(cube->sommets[cube->faces[i][0]]);
 
@@ -92,4 +93,40 @@ void afficher_cube(s_cube * cube) {
 				glVertex3fv(cube->sommets[cube->faces[i][3]]);
 			glEnd();
 		}
+}
+
+
+
+GLvoid creerLampadaire(GLfloat posX, GLfloat posZ) {
+	glTranslatef(posX, 0.0, posZ);
+	glColor3f(0, 0, 255);
+	glPushMatrix();
+	{
+		glTranslatef(0.0, -0.1, 0.0);
+		glPushMatrix();
+		{
+			glRotatef(90, -1, 0, 0);
+        	GLUquadricObj* quadObj = gluNewQuadric();
+        	gluCylinder(quadObj, 0.55, 0.3, 0.7, 6, 6);
+		}
+		glPopMatrix();
+		glTranslatef(0.0, 0.7, 0.0);
+		glPushMatrix();
+		{
+			glRotatef(90, -1, 0, 0);
+        	GLUquadricObj* quadObj = gluNewQuadric();
+        	gluCylinder(quadObj, 0.3, 0.3, 4.0, 6, 6);
+		}
+		glPopMatrix();
+		glTranslatef(0.0, 4.0, 0.0);
+		glPushMatrix(); // TODO
+		{	
+			//glRotatef(15, 1, 0, 0);
+			glRotatef(75, -1, 0, 0);
+        	GLUquadricObj* quadObj = gluNewQuadric();
+        	gluCylinder(quadObj, 0.3, 0.3, 4.0, 6, 6);
+		}
+		glPopMatrix();
+	}
+	glPopMatrix();
 }

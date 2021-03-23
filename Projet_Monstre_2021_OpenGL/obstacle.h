@@ -15,5 +15,6 @@ typedef struct {
 
 s_cube * creer_cube (GLfloat Taille);
 void afficher_cube(s_cube * cube);
+GLvoid creerLampadaire(GLfloat posX, GLfloat posZ);
 
 #endif

@@ -1,10 +1,12 @@
 #include "monstre.h"
 
-
+extern GLfloat rotation_monstre_y;
 /*
+*
 * Axe de référence : z (+)
 * Articulations : Augmenter rotation faire avancer la patte
 * Augmenter angle patte, translation, réduire angle patte
+*
 */
 GLvoid pieds(GLfloat angle, GLfloat angle_2) {
     
@@ -66,6 +68,7 @@ GLvoid corps(GLfloat angle, GLfloat longueur, GLfloat hauteur) {
     glPushMatrix();
     {
         // ROTATION de la tête
+        glRotatef(rotation_monstre_y, 0, 1, 0);
         glRotatef(angle, 0, 1, 0);
         oreilles();
         oeil();
@@ -74,6 +77,7 @@ GLvoid corps(GLfloat angle, GLfloat longueur, GLfloat hauteur) {
     glTranslatef(0.0, 0.35, 0.0);
     glPushMatrix();
     {
+        glRotatef(rotation_monstre_y, 0, 1, 0);
         glRotatef(90, -1, 0, 0);
         GLUquadricObj* quadObj = gluNewQuadric();
         gluCylinder(quadObj, 3, 2.5, 1.5, 15, 15);
@@ -82,6 +86,7 @@ GLvoid corps(GLfloat angle, GLfloat longueur, GLfloat hauteur) {
     glTranslatef(0.0, 1.55, 0.0);
     glPushMatrix();
     {
+        glRotatef(rotation_monstre_y, 0, 1, 0);
         glRotatef(90, -1, 0, 0);
         GLUquadricObj* quadObj = gluNewQuadric();
         gluCylinder(quadObj, 2.0, 1.7, 1.8, 15, 15);
@@ -89,6 +94,7 @@ GLvoid corps(GLfloat angle, GLfloat longueur, GLfloat hauteur) {
     glPopMatrix();
     glPushMatrix();
     {
+        glRotatef(rotation_monstre_y, 0, 1, 0);
         glTranslatef(0.0, 1.8, 0.0);
         glScalef(1.0, 0.1, 1.0);
         glutSolidSphere(1.7, 15, 15);
@@ -96,6 +102,7 @@ GLvoid corps(GLfloat angle, GLfloat longueur, GLfloat hauteur) {
     glPopMatrix();
     glPushMatrix();
     {
+        glRotatef(rotation_monstre_y, 0, 1, 0);
         glScalef(1.0, 0.2, 1.0);
         glutSolidTorus(2.6, 0, 20, 20);
     }
@@ -103,6 +110,7 @@ GLvoid corps(GLfloat angle, GLfloat longueur, GLfloat hauteur) {
 
     glPushMatrix();
     {
+        glRotatef(rotation_monstre_y, 0, 1, 0);
         glRotatef(angle, 0, 1, 0);
         glTranslatef(0.0, 2.0, 0.0);
         glRotatef(90, -1, 0, 0);
@@ -113,6 +121,7 @@ GLvoid corps(GLfloat angle, GLfloat longueur, GLfloat hauteur) {
 
     glPushMatrix();
     {
+        glRotatef(rotation_monstre_y, 0, 1, 0);
         glScalef(0.7, 1.0, 1.0);
         glTranslatef(0.0, 3.6, 0.0);
         glRotatef(90, -1, 0, 0);
@@ -122,6 +131,7 @@ GLvoid corps(GLfloat angle, GLfloat longueur, GLfloat hauteur) {
 
     glPushMatrix();
     {
+        glRotatef(rotation_monstre_y, 0, 1, 0);
         glTranslatef(0.0, 3.6, 0.0);
         glScalef(1.0, 0.1, 1.0);
         glutSolidSphere(1.35, 15, 15);
