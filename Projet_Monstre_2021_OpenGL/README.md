@@ -57,7 +57,9 @@ Touches des bras :
 
 ### Contrôle automatique
 
-> p / P (as in play...) : Démarre/Arrête les déplacements de la réplique
+> p : Démarrer l'animation
+> 
+> P (as in play...) : Démarre/Arrête les déplacements de la réplique
 
 
 
