@@ -1,7 +1,8 @@
 #include "init.h"
 #include "ppm.h"
 #include "string.h"
-#include "dirent.h"
+#include "obstacle.h"
+#include "sol.h"
 
 /*
  * Gestion de la fenêtre
@@ -21,6 +22,9 @@ extern GLfloat yrot;
 extern int culling;
 
 GLuint texture[45];
+
+extern s_cube2 * cube;
+extern s_sol * s;
 
 
 GLvoid Redimensionne(GLsizei Width, GLsizei Height) {
@@ -60,39 +64,32 @@ glutInit(&argc, argv);
 	glShadeModel(GL_SMOOTH);
 
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-	//glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
+	glBlendFunc(GL_ONE, GL_ZERO);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL);
 
-	GLfloat lum[] = {0.2, 0.2, 0.2, 1};
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lum);
 
-	GLfloat LightDiff[4] = {0.5f, 0.5f, 0.5f, 1.0f};
-	GLfloat LightSpec[4] = {0.13, 0.05, 0, 1.0f};
-	GLfloat LightPos[4] = {0, 3, 20, 1};
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, LightDiff);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, LightSpec);
-	glLightfv(GL_LIGHT0, GL_POSITION, LightPos);
-	glEnable(GL_LIGHT0);
 
 	// GESTION DES TEXTURES
-	glGenTextures(1, texture);
+	glGenTextures(45, texture);
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 45; i++)
 	{
 
-	char* fichier;
-	if (i == 0) {
-		fichier = "crate.ppm";
-	} else {
-		char s[255];
-		sprintf(s, "anims/Guybrush0%i", i-1);
-		fichier = s;
-		strcat(fichier, ".ppm");
-		printf("%s\n", s);
-	}
+		char* fichier;
+		if (i == 0) {
+			fichier = "crate.ppm";
+		} else if (i > 0 && i < 44) {
+			char s[255];
+			sprintf(s, "anims/Guybrush%i", i-1);
+			fichier = s;
+			strcat(fichier, ".ppm");
+			printf("%s\n", s);
+		} else {
+			fichier = "wood.ppm";
+		}
 
 		// TEXTURE OBSTACLE
 		TEXTURE_STRUCT * texture_corps = readPpm (fichier);
@@ -123,11 +120,13 @@ glutInit(&argc, argv);
         	0,GL_RGB,GL_UNSIGNED_BYTE, 
         	texture_corps->data);
 	
-		//texture_corps->data = rgb2rgba(texture_corps);
+		if (i > 0 && i < 44) texture_corps->data = rgb2rgba(texture_corps);
 	}
 
 	glEnable(GL_TEXTURE_2D);
 
+	cube = creer_cube2(1);
+	s = creer_sol();
 	
 	glutMainLoop();
 	
