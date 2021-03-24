@@ -5,7 +5,9 @@
 #include "VM_init.h"
 #include "monstre.h"
 #include "obstacle.h"
+#include "sol.h"
 #include "mouvements.h"
+#include "normale.h"
 #include "animation.h"
 #include <GL/gl.h>
 
@@ -62,18 +64,12 @@ GLfloat rayon_univers = 30.0f;
 int automatique = 0;
 int tourner = 0;
 int culling = 0;
+int anim = 0;
 
-GLvoid sol()
-{
-    glPushMatrix();
-    {
-      glColor3f(0, 255, 255);
-      glTranslatef(0.0, -0.1, 0.0);
-      glScalef(rayon_univers, 0.1, rayon_univers);
-      glutSolidCube(1);
-    }
-    glPopMatrix();
-}
+extern int texture[];
+
+s_cube2 * cube = NULL;
+s_sol * s = NULL;
 
 GLvoid monstre() {
 
@@ -176,13 +172,9 @@ GLvoid monstre() {
   glPopMatrix();
 }
 
-
-
 GLvoid Modelisation()
 {
   VM_init();
-
-  sol();
 
   if (automatique) avancer_auto();
 
@@ -193,7 +185,7 @@ GLvoid Modelisation()
     for (size_t i = 0; i < 2; i++)
     {
       glTranslatef(1.5f, 0.0, 0.0f);
-      afficher_cube(creer_cube(1));
+      afficher_cube2(cube);
     }
     
   }
@@ -206,7 +198,7 @@ GLvoid Modelisation()
     for (size_t i = 0; i < 4; i++)
     {
       glTranslatef(1.2f, 0.0, 0.0f);
-      afficher_cube(creer_cube(1));
+      afficher_cube2(cube);
     }
     
   }
@@ -218,10 +210,17 @@ GLvoid Modelisation()
   }
   glPopMatrix();
 
+  glPushMatrix();
+  {
+    glColor3f(255, 255, 255);
+    glTranslatef(0.0, -0.1, 0.0); 
+    afficher_sol(s);
+  }
+  glPopMatrix();
 
-  //showFrame();
+  if (anim) showAnimation();
  
-  axes();
+  //axes();
   glutSwapBuffers();
 }
 
