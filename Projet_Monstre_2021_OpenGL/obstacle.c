@@ -6,6 +6,8 @@
 
 extern GLuint texture[];
 
+static int faces_cube[][4] = {{0, 1, 2, 3}, {4, 5, 6, 7}, {0, 3, 5, 4}, {1, 7, 6, 2}, {0, 4, 7, 1}, {3, 2, 6, 5}};
+
 s_cube * creer_cube (GLfloat Taille) {
 	s_cube * cube = malloc(sizeof(s_cube));
 	
