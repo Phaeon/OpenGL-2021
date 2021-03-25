@@ -5,9 +5,6 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 
-static int faces_cube[][4] = {{0, 1, 2, 3}, {4, 5, 6, 7}, {0, 3, 5, 4}, {1, 7, 6, 2}, {0, 4, 7, 1}, {3, 2, 6, 5}};
-static int sommets[][3] = {{0, 3, 5}, {0, 2, 5}, {0, 2, 4}, {0, 3, 4}, {1, 2, 5}, {1, 3, 5}, {1, 3, 4}, {1, 2, 4}};
-
 // Structure d'un cube sans les normales
 typedef struct {
 	GLfloat sommets[8][3];
