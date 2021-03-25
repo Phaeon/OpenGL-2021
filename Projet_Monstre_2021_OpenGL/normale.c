@@ -2,7 +2,7 @@
 
 // n = v0 x v1 avec V0 = s2 - s1 et v1 = s0 - s1
 normale * calcul_normale(float s0x, float s0y, float s0z, float s1x, float s1y, float s1z, float s2x, float s2y, float s2z) {
-  normale * normale;
+  normale * normale = malloc(sizeof(normale));
   float v0x = s2x - s1x; // 0
   float v0y = s2y - s1y; // 0
   float v0z = s2z - s1z; // -30

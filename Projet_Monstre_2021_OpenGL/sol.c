@@ -31,19 +31,21 @@ s_sol * creer_sol() {
 }
 
 void afficher_sol(s_sol * sol) {
+    glEnable(GL_TEXTURE_2D);
         glNormal3f(0.0f, 1.0f, 0.0f);
         glBindTexture(GL_TEXTURE_2D, texture[44]);
         glBegin(GL_QUADS);
             glTexCoord2f(0.0f, 0.0f);
-		    glVertex3fv(sol->sommets[0]); // s0
+		    glVertex3fv(sol->sommets[0]);
 
             glTexCoord2f(1.0f, 0.0f);
-		    glVertex3fv(sol->sommets[1]); // s1
+		    glVertex3fv(sol->sommets[1]);
 
             glTexCoord2f(1.0f, 1.0f);
-		    glVertex3fv(sol->sommets[2]); // s2
+		    glVertex3fv(sol->sommets[2]);
 
             glTexCoord2f(0.0f, 1.0f);
-		    glVertex3fv(sol->sommets[3]); // s3
+		    glVertex3fv(sol->sommets[3]);
 	    glEnd();
+        glDisable(GL_TEXTURE_2D);
 }

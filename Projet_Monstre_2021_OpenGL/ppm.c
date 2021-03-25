@@ -115,8 +115,8 @@ TEXTURE_STRUCT * readPpm(char *ppmFileName)
 			break;
 	}
 	//Reading the texture
-	//	if ((texture->data = (unsigned char *)malloc(texture->width*texture->height*3*sizeof(unsigned char))) == NULL)
-	if ((texture->data = (unsigned char *)malloc(256*256*3*sizeof(unsigned char))) == NULL)
+	if ((texture->data = (unsigned char *)malloc(texture->width*texture->height*3*sizeof(unsigned char))) == NULL)
+	// if ((texture->data = (unsigned char *)malloc(256*256*3*sizeof(unsigned char))) == NULL)
 	{
 		printf ("(ERROR) : C function malloc failed in readPpm(%s)\n", ppmFileName);
 		getchar();
@@ -127,7 +127,7 @@ TEXTURE_STRUCT * readPpm(char *ppmFileName)
 
 	int ligne = 0;
 	while(ligne < texture->height) {
-	  fread(texture->data+(3*256*ligne), sizeof(unsigned char), 3*texture->width, file);
+	  fread(texture->data+(3*texture->width*ligne), sizeof(unsigned char), 3*texture->width, file);
 	  ligne++;
 	}
 	// fread(texture->data, sizeof(unsigned char), 3*texture->width*texture->height, file);
@@ -135,8 +135,8 @@ TEXTURE_STRUCT * readPpm(char *ppmFileName)
 	printf ("(OK) : The file %s was correctly parsed and uploaded in memory [function readPpm]\n", ppmFileName);
 	//printf ("%d %d %d\n", texture->width, texture->height, texture->bpp);getchar();getchar();
 
-	texture->width = 256;
-	texture->height = 256;
+	// texture->width = 256;
+	// texture->height = 256;
 	return texture;
 
 }

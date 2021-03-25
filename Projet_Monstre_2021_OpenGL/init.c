@@ -3,23 +3,14 @@
 #include "string.h"
 #include "obstacle.h"
 #include "sol.h"
-
-/*
- * Gestion de la fenêtre
- */
+#include "lumiere.h"
  
 int window;
  
-GLuint blend = 1;
-GLuint light = 1;
+GLuint blend = 0;
+GLuint light = 0;
 
-extern GLfloat x;
-extern GLfloat y;
 extern GLfloat z;
-extern GLfloat xrot;
-extern GLfloat yrot;
-
-extern int culling;
 
 GLuint texture[45];
 
@@ -34,7 +25,7 @@ GLvoid Redimensionne(GLsizei Width, GLsizei Height) {
 	glLoadIdentity();
 	
 	gluPerspective(45.0f, (GLdouble)Width/(GLdouble)Height, 1.0f, 100.0f);
-	glMatrixMode(GL_MODELVIEW);
+	
 }
 
 
@@ -59,22 +50,24 @@ glutInit(&argc, argv);
 	glutSpecialFunc(&touche_special);
 	
 	// Couleur du fond d'écran
-	glClearColor(1, 1, 1, 0);
+	glClearColor(0.9, 0.9, 0.9, 0);
 	glDepthFunc(GL_LEQUAL);
 	glShadeModel(GL_SMOOTH);
-
+	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_ONE, GL_ZERO);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	 
+
+	// GESTION DE LA LUMIÈRE
 	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL);
 
-
+	lumiere();
 
 	// GESTION DES TEXTURES
 	glGenTextures(45, texture);
-
+	
 	for (int i = 0; i < 45; i++)
 	{
 
@@ -83,12 +76,12 @@ glutInit(&argc, argv);
 			fichier = "crate.ppm";
 		} else if (i > 0 && i < 44) {
 			char s[255];
-			sprintf(s, "anims/Guybrush%i", i-1);
+			sprintf(s, "anims/Guybrush%.2i", i-1);
 			fichier = s;
 			strcat(fichier, ".ppm");
 			printf("%s\n", s);
 		} else {
-			fichier = "wood.ppm";
+			fichier = "granite.ppm";
 		}
 
 		// TEXTURE OBSTACLE
@@ -114,16 +107,24 @@ glutInit(&argc, argv);
         	GL_TEXTURE_MIN_FILTER,
         	GL_LINEAR
     	);
-    	glTexImage2D(GL_TEXTURE_2D,
+		if (i > 0 && i < 44) {
+			texture_corps->data = rgb2rgba(texture_corps);
+			
+			glTexImage2D(GL_TEXTURE_2D,
+        	0,GL_RGBA,
+        	texture_corps->width,texture_corps->height,
+        	0,GL_RGBA,GL_UNSIGNED_BYTE, 
+        	texture_corps->data);
+		} else {
+			glTexImage2D(GL_TEXTURE_2D,
         	0,GL_RGB,
         	texture_corps->width,texture_corps->height,
         	0,GL_RGB,GL_UNSIGNED_BYTE, 
         	texture_corps->data);
-	
-		if (i > 0 && i < 44) texture_corps->data = rgb2rgba(texture_corps);
+		}
+
 	}
 
-	glEnable(GL_TEXTURE_2D);
 
 	cube = creer_cube2(1);
 	s = creer_sol();

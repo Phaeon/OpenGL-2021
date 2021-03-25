@@ -64,17 +64,18 @@ GLvoid pieds(GLfloat angle, GLfloat angle_2) {
 }
 
 
-GLvoid corps(GLfloat angle, GLfloat longueur, GLfloat hauteur) {
+GLvoid corps(GLfloat angle) {
     glPushMatrix();
     {
-        // ROTATION de la tête
         glRotatef(rotation_monstre_y, 0, 1, 0);
         glRotatef(angle, 0, 1, 0);
         oreilles();
         oeil();
     }
     glPopMatrix();
+    
     glTranslatef(0.0, 0.35, 0.0);
+
     glPushMatrix();
     {
         glRotatef(rotation_monstre_y, 0, 1, 0);
@@ -83,7 +84,9 @@ GLvoid corps(GLfloat angle, GLfloat longueur, GLfloat hauteur) {
         gluCylinder(quadObj, 3, 2.5, 1.5, 15, 15);
     }
     glPopMatrix();
+
     glTranslatef(0.0, 1.55, 0.0);
+
     glPushMatrix();
     {
         glRotatef(rotation_monstre_y, 0, 1, 0);
@@ -92,6 +95,7 @@ GLvoid corps(GLfloat angle, GLfloat longueur, GLfloat hauteur) {
         gluCylinder(quadObj, 2.0, 1.7, 1.8, 15, 15);
     }
     glPopMatrix();
+
     glPushMatrix();
     {
         glRotatef(rotation_monstre_y, 0, 1, 0);
@@ -100,6 +104,7 @@ GLvoid corps(GLfloat angle, GLfloat longueur, GLfloat hauteur) {
         glutSolidSphere(1.7, 15, 15);
     }
     glPopMatrix();
+
     glPushMatrix();
     {
         glRotatef(rotation_monstre_y, 0, 1, 0);

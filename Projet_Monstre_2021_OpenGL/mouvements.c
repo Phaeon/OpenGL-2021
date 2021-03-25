@@ -24,9 +24,8 @@ extern GLfloat angle_pattes_ARD_y;
 extern GLfloat angle_pattes_ARG;
 extern GLfloat angle_pattes_ARG_y;
 
-extern GLfloat rayon_univers;
+extern GLfloat diametre_univers;
 extern GLfloat mouvement_monstre_x;
-extern GLfloat mouvement_monstre_y;
 extern GLfloat mouvement_monstre_z;
 extern GLfloat rotation_monstre_y;
 
@@ -46,7 +45,6 @@ extern int rotation;
 extern int right_end;
 extern GLfloat angle_tete;
 
-
 extern int tourner;
 extern int automatique;
 
@@ -57,8 +55,8 @@ GLvoid rotation_pattes_avant() // sommet = 0 que lorsqu'il aura avancé
 {   
     if (sommet_ava == 0) {
         if (angle_pattes_AD <= 10.0f) {
-            angle_pattes_AG += 0.1f;
-            angle_pattes_AD += 0.1f;
+            angle_pattes_AG += 0.2f;
+            angle_pattes_AD += 0.2f;
         } else sommet_ava = 1;
     } else {
         if (angle_pattes_AD_y <= 5.0f) {
@@ -66,8 +64,8 @@ GLvoid rotation_pattes_avant() // sommet = 0 que lorsqu'il aura avancé
             angle_pattes_AD_y += 0.2f;
         } else {
             if (angle_pattes_AD > 0) {
-                angle_pattes_AG -= 0.1f;
-                angle_pattes_AD -= 0.1f;
+                angle_pattes_AG -= 0.2f;
+                angle_pattes_AD -= 0.2f;
             } else avancer_ava = 1;
         }
     }
@@ -77,8 +75,8 @@ GLvoid rotation_pattes_lat()
 {
     if (sommet_lat == 0) {
         if (angle_pattes_CD <= 10.0f) {
-            angle_pattes_CG += 0.1f;
-            angle_pattes_CD += 0.1f;
+            angle_pattes_CG += 0.2f;
+            angle_pattes_CD += 0.2f;
         } else sommet_lat = 1;
     } else {
         if (angle_pattes_CD_y <= 5.0f) {
@@ -86,8 +84,8 @@ GLvoid rotation_pattes_lat()
             angle_pattes_CD_y += 0.2f;
         } else {
             if (angle_pattes_CD > 0) {
-                angle_pattes_CG -= 0.1f;
-                angle_pattes_CD -= 0.1f;
+                angle_pattes_CG -= 0.2f;
+                angle_pattes_CD -= 0.2f;
             } else avancer_lat = 1;
         }
     }
@@ -97,8 +95,8 @@ GLvoid rotation_pattes_arriere()
 {
     if (sommet_arr == 0) {
         if (angle_pattes_ARD <= 10.0f) {
-            angle_pattes_ARG += 0.1f;
-            angle_pattes_ARD += 0.1f;
+            angle_pattes_ARG += 0.2f;
+            angle_pattes_ARD += 0.2f;
         } else sommet_arr = 1;
     } else {
         if (angle_pattes_ARD_y <= 5.0f) {
@@ -106,8 +104,8 @@ GLvoid rotation_pattes_arriere()
             angle_pattes_ARD_y += 0.2f;
         } else {
             if (angle_pattes_ARD > 0) {
-                angle_pattes_ARG -= 0.1f;
-                angle_pattes_ARD -= 0.1f;
+                angle_pattes_ARG -= 0.2f;
+                angle_pattes_ARD -= 0.2f;
             } else avancer_arr = 1;
         }
     }
@@ -146,7 +144,7 @@ GLvoid avancer_monstre() {
             }
 
             if (rotation_monstre_y == 90 || rotation_monstre_y == -270) {
-                if (mouvement_monstre_x < (rayon_univers/2 - 2.0f)) mouvement_monstre_x += 0.075;
+                if (mouvement_monstre_x < (diametre_univers/2 - 2.0f)) mouvement_monstre_x += 0.075;
                 else {
                     int t = rand()%2;
                     if (t == 1) tourner = 1;
@@ -154,7 +152,7 @@ GLvoid avancer_monstre() {
                     rotation = 2;
                 }
             } else if (rotation_monstre_y == -90 || rotation_monstre_y == 270) {
-                if (mouvement_monstre_x > (-rayon_univers/2 + 2.0f)) mouvement_monstre_x -= 0.075; 
+                if (mouvement_monstre_x > (-diametre_univers/2 + 2.0f)) mouvement_monstre_x -= 0.075; 
                 else {
                     int t = rand()%2;
                     if (t == 1) tourner = 1;
@@ -162,7 +160,7 @@ GLvoid avancer_monstre() {
                     rotation = 4;
                 }        
             } else if (rotation_monstre_y == 180 || rotation_monstre_y == -180) {
-                if (mouvement_monstre_z > (-rayon_univers/2 + 2.0f)) mouvement_monstre_z -= 0.075;
+                if (mouvement_monstre_z > (-diametre_univers/2 + 2.0f)) mouvement_monstre_z -= 0.075;
                 else {
                     int t = rand()%2;
                     if (t == 1) tourner = 1;
@@ -170,7 +168,7 @@ GLvoid avancer_monstre() {
                     rotation = 3;
                 }
             } else if (rotation_monstre_y == 0) {
-                if (mouvement_monstre_z < (rayon_univers/2 - 2.0f)) mouvement_monstre_z += 0.075;   
+                if (mouvement_monstre_z < (diametre_univers/2 - 2.0f)) mouvement_monstre_z += 0.075;   
                 else {
                     int t = rand()%2;
                     if (t == 1) tourner = 1;

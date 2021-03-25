@@ -7,7 +7,7 @@
 
 
 GLvoid pieds(GLfloat angle, GLfloat angle_2);
-GLvoid corps(GLfloat largeur, GLfloat longueur, GLfloat hauteur);
+GLvoid corps(GLfloat largeur);
 GLvoid bras(GLfloat angle, int bras);
 GLvoid oeil();
 GLvoid oreilles();

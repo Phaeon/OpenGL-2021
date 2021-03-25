@@ -5,4 +5,4 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 
-void showAnimation();
+void showAnimation(GLfloat posX, GLfloat posY, GLfloat posZ);
