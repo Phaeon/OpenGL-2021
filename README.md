@@ -1,4 +1,4 @@
-# OpenGL - Projet CC 2021 - Jack Hogg
+# OpenGL - Projet 2021 - Jack Hogg
 
 ## Présentation
 
